@@ -1,0 +1,391 @@
+# ============================================================
+# OpenClash Mixin 配置文件
+# 适用位置：OpenClash → 配置文件 → Mixin 设置 → diy.yaml
+# 功能：覆写策略组(proxy-groups) + 规则(rules)
+# 配合机场订阅使用，节点由订阅自动提供
+# ============================================================
+
+# -----------------------------------------------------------
+# 策略组
+# -----------------------------------------------------------
+proxy-groups:
+
+  # ─── 🚀 顶级入口 ──────────────────────────────────────
+  - name: "🚀 Proxy"
+    type: select
+    proxies:
+      - "♻️ 故障转移"
+      - "🎯 自动选择"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇺🇸 美国"
+      - "🇸🇬 新加坡"
+      - "🇹🇼 台湾"
+      - "🇰🇷 韩国"
+      - "🇦🇺 澳大利亚"
+      - DIRECT
+      - REJECT
+
+  # ─── ♻️ 故障转移（稳定优先）────────────────────────────
+  - name: "♻️ 故障转移"
+    type: fallback
+    proxies:
+      - "🇺🇸 美国"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇸🇬 新加坡"
+      - "🇹🇼 台湾"
+      - "🇰🇷 韩国"
+      - "🇦🇺 澳大利亚"
+      - DIRECT
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+    timeout: 5
+
+  # ─── 🎯 自动选择（url-test 测速兜底）───────────────────
+  - name: "🎯 自动选择"
+    type: url-test
+    include-all: true
+    url: "https://www.gstatic.com/generate_204"
+    interval: 600
+    tolerance: 30
+    timeout: 5
+    lazy: true
+
+  # ─── 🇭🇰 香港 ──────────────────────────────────────────
+  - name: "🇭🇰 香港"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇭🇰)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇯🇵 日本 ──────────────────────────────────────────
+  - name: "🇯🇵 日本"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇯🇵)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇺🇸 美国 ──────────────────────────────────────────
+  - name: "🇺🇸 美国"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇺🇸)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇸🇬 新加坡 ────────────────────────────────────────
+  - name: "🇸🇬 新加坡"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇸🇬)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇹🇼 台湾 ──────────────────────────────────────────
+  - name: "🇹🇼 台湾"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇹🇼|.*台湾|.*TW)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇰🇷 韩国 ──────────────────────────────────────────
+  - name: "🇰🇷 韩国"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇰🇷|.*韩国|.*KR)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇦🇺 澳大利亚 ──────────────────────────────────────
+  - name: "🇦🇺 澳大利亚"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇦🇺|.*澳大利亚|.*AU)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 📺 流媒体（YouTube / Netflix / Disney+ / Spotify 等）
+  - name: "📺 流媒体"
+    type: select
+    proxies:
+      - "🇺🇸 美国"
+      - "🎯 自动选择"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇸🇬 新加坡"
+      - DIRECT
+
+  # ─── 🤖 AI 服务（ChatGPT / Gemini / Claude / Perplexity 等）
+  - name: "🤖 AI服务"
+    type: select
+    proxies:
+      - "🇺🇸 美国"
+      - "🎯 自动选择"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇸🇬 新加坡"
+      - DIRECT
+
+  # ─── ✈️ Telegram ──────────────────────────────────────
+  - name: "✈️ Telegram"
+    type: select
+    proxies:
+      - "🎯 自动选择"
+      - "🇭🇰 香港"
+      - "🇯🇵 日本"
+      - "🇸🇬 新加坡"
+      - DIRECT
+
+  # ─── 🍎 Apple 服务 ────────────────────────────────────
+  - name: "🍎 Apple"
+    type: select
+    proxies:
+      - DIRECT
+      - "🎯 自动选择"
+      - "🇭🇰 香港"
+
+# -----------------------------------------------------------
+# 规则
+# -----------------------------------------------------------
+rules:
+
+  # ═══════════════════════════════════════════════════════
+  # 1. 广告 / 恶意软件 / 隐私追踪 → REJECT
+  # ═══════════════════════════════════════════════════════
+  - DOMAIN-KEYWORD,admaster,REJECT
+  - DOMAIN-KEYWORD,adservice,REJECT
+  - DOMAIN-KEYWORD,advertising,REJECT
+  - DOMAIN-KEYWORD,analytics,REJECT
+  - DOMAIN-KEYWORD,click,REJECT
+  - DOMAIN-KEYWORD,crashlytics,REJECT
+  - DOMAIN-KEYWORD,doubleclick,REJECT
+  - DOMAIN-KEYWORD,googlead,REJECT
+  - DOMAIN-KEYWORD,google-analytics,REJECT
+  - DOMAIN-KEYWORD,googlesyndication,REJECT
+  - DOMAIN-KEYWORD,googletagmanager,REJECT
+  - DOMAIN-KEYWORD,googletagservices,REJECT
+  - DOMAIN-KEYWORD,mopub,REJECT
+  - DOMAIN-KEYWORD,pagead,REJECT
+  - DOMAIN-KEYWORD,tracking,REJECT
+  - DOMAIN-SUFFIX,adcolony.com,REJECT
+  - DOMAIN-SUFFIX,adsrvr.org,REJECT
+  - DOMAIN-SUFFIX,appsflyer.com,REJECT
+  - DOMAIN-SUFFIX,braze.com,REJECT
+  - DOMAIN-SUFFIX,firebase.io,REJECT
+  - DOMAIN-SUFFIX,leanplum.com,REJECT
+  - DOMAIN-SUFFIX,mixpanel.com,REJECT
+  - DOMAIN-SUFFIX,mmstat.com,REJECT
+  - DOMAIN-SUFFIX,talkingdata.net,REJECT
+  - DOMAIN-SUFFIX,umeng.com,REJECT
+  - DOMAIN-SUFFIX,unity3d.com,REJECT
+
+  # ═══════════════════════════════════════════════════════
+  # 2. 🍎 Apple 系统服务
+  # ═══════════════════════════════════════════════════════
+  - DOMAIN-SUFFIX,apple.com,🍎 Apple
+  - DOMAIN-SUFFIX,icloud.com,🍎 Apple
+  - DOMAIN-SUFFIX,icloud-content.com,🍎 Apple
+  - DOMAIN-SUFFIX,itunes.apple.com,🍎 Apple
+  - DOMAIN-SUFFIX,mzstatic.com,🍎 Apple
+  - DOMAIN-SUFFIX,aaplimg.com,🍎 Apple
+  - DOMAIN-SUFFIX,apple-dns.net,🍎 Apple
+  - DOMAIN-SUFFIX,icloud.com.cn,🍎 Apple
+
+  # ═══════════════════════════════════════════════════════
+  # 3. 🤖 AI 服务（OpenAI / Google AI / Anthropic 等）
+  # ═══════════════════════════════════════════════════════
+  - DOMAIN-SUFFIX,openai.com,🤖 AI服务
+  - DOMAIN-SUFFIX,chatgpt.com,🤖 AI服务
+  - DOMAIN-SUFFIX,oaistatic.com,🤖 AI服务
+  - DOMAIN-SUFFIX,oaiusercontent.com,🤖 AI服务
+  - DOMAIN-SUFFIX,auth0.com,🤖 AI服务
+  - DOMAIN-SUFFIX,gemini.google.com,🤖 AI服务
+  - DOMAIN-KEYWORD,generativelanguage,🤖 AI服务
+  - DOMAIN-SUFFIX,anthropic.com,🤖 AI服务
+  - DOMAIN-SUFFIX,claude.ai,🤖 AI服务
+  - DOMAIN-SUFFIX,perplexity.ai,🤖 AI服务
+  - DOMAIN-SUFFIX,perplexity.com,🤖 AI服务
+  - DOMAIN-SUFFIX,copilot.microsoft.com,🤖 AI服务
+  - DOMAIN-KEYWORD,openai,🤖 AI服务
+  - DOMAIN-SUFFIX,sora.com,🤖 AI服务
+
+  # ═══════════════════════════════════════════════════════
+  # 4. 📺 流媒体（YouTube / Netflix / Disney+ / Spotify 等）
+  # ═══════════════════════════════════════════════════════
+  - DOMAIN-SUFFIX,youtube.com,📺 流媒体
+  - DOMAIN-SUFFIX,ytimg.com,📺 流媒体
+  - DOMAIN-SUFFIX,googlevideo.com,📺 流媒体
+  - DOMAIN-SUFFIX,youtu.be,📺 流媒体
+  - DOMAIN-SUFFIX,youtubeeducation.com,📺 流媒体
+  - DOMAIN-SUFFIX,youtubekids.com,📺 流媒体
+  - DOMAIN-SUFFIX,netflix.com,📺 流媒体
+  - DOMAIN-SUFFIX,nflximg.com,📺 流媒体
+  - DOMAIN-SUFFIX,nflximg.net,📺 流媒体
+  - DOMAIN-SUFFIX,nflxvideo.net,📺 流媒体
+  - DOMAIN-SUFFIX,nflxext.com,📺 流媒体
+  - DOMAIN-SUFFIX,nflxso.net,📺 流媒体
+  - DOMAIN-SUFFIX,disneyplus.com,📺 流媒体
+  - DOMAIN-SUFFIX,disneyplus.net,📺 流媒体
+  - DOMAIN-SUFFIX,dssott.com,📺 流媒体
+  - DOMAIN-SUFFIX,spotify.com,📺 流媒体
+  - DOMAIN-SUFFIX,spotifycdn.com,📺 流媒体
+  - DOMAIN-SUFFIX,spotifycharts.com,📺 流媒体
+  - DOMAIN-SUFFIX,scdn.co,📺 流媒体
+  - DOMAIN-SUFFIX,hbo.com,📺 流媒体
+  - DOMAIN-SUFFIX,hbomax.com,📺 流媒体
+  - DOMAIN-SUFFIX,hbogoasia.com,📺 流媒体
+  - DOMAIN-SUFFIX,hbogo.com,📺 流媒体
+  - DOMAIN-SUFFIX,primevideo.com,📺 流媒体
+  - DOMAIN-SUFFIX,aiv-cdn.net,📺 流媒体
+  - DOMAIN-SUFFIX,tv.apple.com,📺 流媒体
+  - DOMAIN-SUFFIX,crunchyroll.com,📺 流媒体
+  - DOMAIN-SUFFIX,twitch.tv,📺 流媒体
+  - DOMAIN-SUFFIX,vimeo.com,📺 流媒体
+  - DOMAIN-SUFFIX,dailymotion.com,📺 流媒体
+  - DOMAIN-SUFFIX,tiktok.com,📺 流媒体
+  - DOMAIN-SUFFIX,tiktokcdn.com,📺 流媒体
+
+  # ═══════════════════════════════════════════════════════
+  # 5. ✈️ Telegram
+  # ═══════════════════════════════════════════════════════
+  - DOMAIN-SUFFIX,telegram.org,✈️ Telegram
+  - DOMAIN-SUFFIX,t.me,✈️ Telegram
+  - DOMAIN-SUFFIX,tdesktop.com,✈️ Telegram
+  - DOMAIN-SUFFIX,telegram.me,✈️ Telegram
+  - DOMAIN-SUFFIX,telegram.dog,✈️ Telegram
+  - DOMAIN-SUFFIX,stel.com,✈️ Telegram
+  - DOMAIN-KEYWORD,telegram,✈️ Telegram
+
+  # ═══════════════════════════════════════════════════════
+  # 6. 其他常用国外服务 → 🎯 自动选择
+  # ═══════════════════════════════════════════════════════
+  - DOMAIN-SUFFIX,google.com,🎯 自动选择
+  - DOMAIN-SUFFIX,googleapis.cn,🎯 自动选择
+  - DOMAIN-SUFFIX,gstatic.com,🎯 自动选择
+  - DOMAIN-SUFFIX,googleusercontent.com,🎯 自动选择
+  - DOMAIN-SUFFIX,google-analytics.com,🎯 自动选择
+  - DOMAIN-SUFFIX,twitter.com,🎯 自动选择
+  - DOMAIN-SUFFIX,x.com,🎯 自动选择
+  - DOMAIN-SUFFIX,t.co,🎯 自动选择
+  - DOMAIN-SUFFIX,twimg.com,🎯 自动选择
+  - DOMAIN-SUFFIX,github.com,🎯 自动选择
+  - DOMAIN-SUFFIX,githubassets.com,🎯 自动选择
+  - DOMAIN-SUFFIX,reddit.com,🎯 自动选择
+  - DOMAIN-SUFFIX,redditmedia.com,🎯 自动选择
+  - DOMAIN-SUFFIX,facebook.com,🎯 自动选择
+  - DOMAIN-SUFFIX,fbcdn.net,🎯 自动选择
+  - DOMAIN-SUFFIX,messenger.com,🎯 自动选择
+  - DOMAIN-SUFFIX,instagram.com,🎯 自动选择
+  - DOMAIN-SUFFIX,cdninstagram.com,🎯 自动选择
+  - DOMAIN-SUFFIX,whatsapp.net,🎯 自动选择
+  - DOMAIN-SUFFIX,live.com,🎯 自动选择
+  - DOMAIN-SUFFIX,microsoft.com,🎯 自动选择
+  - DOMAIN-SUFFIX,azure.com,🎯 自动选择
+  - DOMAIN-SUFFIX,stackoverflow.com,🎯 自动选择
+  - DOMAIN-SUFFIX,medium.com,🎯 自动选择
+  - DOMAIN-SUFFIX,notion.com,🎯 自动选择
+  - DOMAIN-SUFFIX,figma.com,🎯 自动选择
+  - DOMAIN-SUFFIX,vercel.com,🎯 自动选择
+  - DOMAIN-SUFFIX,cloudflare.com,🎯 自动选择
+  - DOMAIN-SUFFIX,digitalocean.com,🎯 自动选择
+
+  # ═══════════════════════════════════════════════════════
+  # 7. 港台地区服务
+  # ═══════════════════════════════════════════════════════
+  - DOMAIN-SUFFIX,viu.tv,🇭🇰 香港
+  - DOMAIN-SUFFIX,viu.com,🇭🇰 香港
+  - DOMAIN-SUFFIX,mytvsuper.com,🇭🇰 香港
+  - DOMAIN-SUFFIX,hboasia.com,🇭🇰 香港
+
+  # ═══════════════════════════════════════════════════════
+  # 8. 国内服务 → DIRECT（全部直连）
+  # ═══════════════════════════════════════════════════════
+  - DOMAIN-SUFFIX,qq.com,DIRECT
+  - DOMAIN-SUFFIX,y.qq.com,DIRECT
+  - DOMAIN-SUFFIX,music.qq.com,DIRECT
+  - DOMAIN-SUFFIX,tencent.com,DIRECT
+  - DOMAIN-SUFFIX,tencentmusic.com,DIRECT
+  - DOMAIN-KEYWORD,qqmusic,DIRECT
+  - DOMAIN-SUFFIX,netease.com,DIRECT
+  - DOMAIN-SUFFIX,163.com,DIRECT
+  - DOMAIN-SUFFIX,music.163.com,DIRECT
+  - DOMAIN-SUFFIX,xiami.com,DIRECT
+  - DOMAIN-SUFFIX,kugou.com,DIRECT
+  - DOMAIN-SUFFIX,kuwo.cn,DIRECT
+  - DOMAIN-SUFFIX,weixin.com,DIRECT
+  - DOMAIN-SUFFIX,wechat.com,DIRECT
+  - DOMAIN-SUFFIX,wx.qq.com,DIRECT
+  - DOMAIN-SUFFIX,weibo.com,DIRECT
+  - DOMAIN-SUFFIX,weibo.cn,DIRECT
+  - DOMAIN-SUFFIX,zhihu.com,DIRECT
+  - DOMAIN-SUFFIX,douban.com,DIRECT
+  - DOMAIN-SUFFIX,bilibili.com,DIRECT
+  - DOMAIN-SUFFIX,b23.tv,DIRECT
+  - DOMAIN-SUFFIX,hdslb.com,DIRECT
+  - DOMAIN-SUFFIX,taobao.com,DIRECT
+  - DOMAIN-SUFFIX,tmall.com,DIRECT
+  - DOMAIN-SUFFIX,jd.com,DIRECT
+  - DOMAIN-SUFFIX,pinduoduo.com,DIRECT
+  - DOMAIN-SUFFIX,suning.com,DIRECT
+  - DOMAIN-SUFFIX,alipay.com,DIRECT
+  - DOMAIN-SUFFIX,alipayobjects.com,DIRECT
+  - DOMAIN-SUFFIX,unionpay.com,DIRECT
+  - DOMAIN-SUFFIX,tenpay.com,DIRECT
+  - DOMAIN-SUFFIX,youku.com,DIRECT
+  - DOMAIN-SUFFIX,iqiyi.com,DIRECT
+  - DOMAIN-SUFFIX,qiyi.com,DIRECT
+  - DOMAIN-SUFFIX,tudou.com,DIRECT
+  - DOMAIN-SUFFIX,mgtv.com,DIRECT
+  - DOMAIN-SUFFIX,letv.com,DIRECT
+  - DOMAIN-SUFFIX,sohu.com,DIRECT
+  - DOMAIN-SUFFIX,acfun.cn,DIRECT
+  - DOMAIN-SUFFIX,dianping.com,DIRECT
+  - DOMAIN-SUFFIX,meituan.com,DIRECT
+  - DOMAIN-SUFFIX,ctrip.com,DIRECT
+  - DOMAIN-SUFFIX,fliggy.com,DIRECT
+  - DOMAIN-SUFFIX,12306.cn,DIRECT
+  - DOMAIN-SUFFIX,amap.com,DIRECT
+  - DOMAIN-SUFFIX,autonavi.com,DIRECT
+  - DOMAIN-SUFFIX,bdimg.com,DIRECT
+  - DOMAIN-SUFFIX,bdstatic.com,DIRECT
+  - DOMAIN-SUFFIX,baidu.com,DIRECT
+  - DOMAIN-SUFFIX,baiducontent.com,DIRECT
+  - DOMAIN-SUFFIX,aliyun.com,DIRECT
+  - DOMAIN-SUFFIX,aliyuncs.com,DIRECT
+  - DOMAIN-SUFFIX,tencent-cloud.com,DIRECT
+  - DOMAIN-SUFFIX,qcloud.com,DIRECT
+  - DOMAIN-SUFFIX,dingtalk.com,DIRECT
+  - DOMAIN-SUFFIX,larkoffice.com,DIRECT
+  - DOMAIN-SUFFIX,feishu.cn,DIRECT
+  - DOMAIN-SUFFIX,wps.cn,DIRECT
+  - DOMAIN-SUFFIX,miyoushe.com,DIRECT
+  - DOMAIN-SUFFIX,hoyoverse.com,DIRECT
+  - DOMAIN-SUFFIX,yuanshen.com,DIRECT
+
+  # ═══════════════════════════════════════════════════════
+  # 9. GEOIP 国内 IP → DIRECT
+  # ═══════════════════════════════════════════════════════
+  - GEOIP,CN,DIRECT
+
+  # ═══════════════════════════════════════════════════════
+  # 10. FINAL 兜底 → 🎯 自动选择
+  # ═══════════════════════════════════════════════════════
+  - MATCH,🎯 自动选择
