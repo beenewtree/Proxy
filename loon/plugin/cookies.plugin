@@ -18,4 +18,4 @@ http-request ^https:\/\/user-api-prd-mx\.wandafilm\.com\/user\/user_info tag=万
 
 
 [MITM]
-hostname = personal-act.wps.cn,u6.y.qq.com,*.amap.com,shop-api.retail.mi.com,user-api-prd-mx.wandafilm.com
+hostname = personal-act.wps.cn, u6.y.qq.com, *.amap.com, shop-api.retail.mi.com, user-api-prd-mx.wandafilm.com
