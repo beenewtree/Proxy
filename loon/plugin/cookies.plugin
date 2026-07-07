@@ -7,5 +7,8 @@ http-request ^https:\/\/personal-act\.wps\.cn\/activity-rubik\/activity\/page_in
 #QQ音乐签到
 http-request ^https:\/\/u6\.y\.qq\.com\/cgi-bin\/musics\.fcg\?.*EveryDaySignLvzScore tag=QQ音乐 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/qqmusic/qqmusic.js, requires-body=false, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/qqmusic.png
 
-[MITM]
-hostname = personal-act.wps.cn,u6.y.qq.com
+#高德打车
+http-response ^https?:\/\/(m5(|-zb)|dache)\.amap\.com\/(ws\/yuece\/(act|openapi\/activity\/current)\/query|common\/(alipaymini|wxmini)\?_ENCRYPT=) tag=高德打车cookies, script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/ampDache.js, requires-body=true, img-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/GaodeMap.jpg
+
+
+hostname = personal-act.wps.cn,u6.y.qq.com,*.amap.com
