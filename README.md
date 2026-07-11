@@ -15,7 +15,8 @@ Proxy/
 │   └── readme.md                  #   Loon 说明
 ├── openclash/
 │   └── diy.yaml                   #   OpenClash Mixin 覆写配置
-├── quantumultx/                   #   Quantumult X (预留)
+├── quantumultx/
+│   └── qx.conf                    #   Quantumult X 配置（占位模板）
 ├── skills/
 │   └── loon-helper/
 │       └── SKILL.md               #   VS Code Copilot 技能
@@ -62,7 +63,9 @@ Proxy/
 
 ### Quantumult X（iOS）
 
-目录已预留，暂无配置。
+适用于 iPhone / iPad 的代理客户端，配置文件位于 `quantumultx/qx.conf`。
+
+> ⚠️ 该配置为基础占位模板，含策略组、分流规则和常见 App 的 MITM 设置。使用前需填入个人节点订阅链接并安装 MITM 证书。
 
 ---
 
