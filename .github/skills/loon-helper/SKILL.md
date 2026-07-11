@@ -81,6 +81,16 @@ cron "..." script-path=..., tag=任务名, img-url=..., enable=true
 
 5. **验证**：读取两个文件确认写入正确
 
+6. **提交并推送代码**：
+   - 运行 `cd d:\github\Proxy; git add -A` 暂存所有修改
+   - 运行 `cd d:\github\Proxy; git diff --cached` 查看暂存内容，提取变更摘要
+   - 根据修改内容生成规范的提交信息，格式为 `feat(模块名): 中文描述`，如：
+     - `feat(miniso): 添加名创优品签到配置`
+     - `fix(wps): 修复 WPS Cookie 脚本路径`
+   - 在提交信息正文中用 `-` 列表逐项描述每个文件的变更内容
+   - 运行 `cd d:\github\Proxy; git commit -m "<信息>"` 提交
+   - 运行 `cd d:\github\Proxy; git push` 推送到远程仓库
+
 ## 注意事项
 
 - 先读文件确认当前结构再编辑
