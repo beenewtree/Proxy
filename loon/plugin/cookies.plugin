@@ -28,5 +28,8 @@ http-request ^https:\/\/gw2c-hw-open\.longfor\.com\/lmarketing-task-api-mvc-prod
 #名创优品cookie
 http-request ^https:\/\/member-center\.miniso\.com\/userinfo\/userinfo\/GetUserInfoV3 tag=名创优品 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/miniprogram/miniso/miniso.js, requires-body=false, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/miniso.png
 
+#有品cookie
+http-request ^https:\/\/m\.xiaomiyoupin\.com\/mtop\/act\/redPacketSign\/getActInfo tag=有品 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/youpin/youpin.js, requires-body=false, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/youpin.png
+
 [MITM]
-hostname = personal-act.wps.cn, u6.y.qq.com, *.amap.com, shop-api.retail.mi.com, user-api-prd-mx.wandafilm.com, cn-wxmall.dreame.tech, app.mixcapp.com, gw2c-hw-open.longfor.com, member-center.miniso.com
+hostname = personal-act.wps.cn, u6.y.qq.com, *.amap.com, shop-api.retail.mi.com, user-api-prd-mx.wandafilm.com, cn-wxmall.dreame.tech, app.mixcapp.com, gw2c-hw-open.longfor.com, member-center.miniso.com, m.xiaomiyoupin.com
