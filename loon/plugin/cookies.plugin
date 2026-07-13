@@ -31,5 +31,8 @@ http-request ^https:\/\/member-center\.miniso\.com\/userinfo\/userinfo\/GetUserI
 #有品cookie
 http-request ^https:\/\/m\.xiaomiyoupin\.com\/mtop\/act\/redPacketSign\/getActInfo tag=有品 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/youpin/youpin.js, requires-body=false, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/youpin.png
 
+#小米抽奖cookie
+http-request ^https:\/\/shop-api\.retail\.mi\.com\/mtop\/navi\/venue\/batch tag=小米抽奖 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/milottery/milottery.js, requires-body=true, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/mishop.png
+
 [MITM]
 hostname = personal-act.wps.cn, u6.y.qq.com, *.amap.com, shop-api.retail.mi.com, user-api-prd-mx.wandafilm.com, cn-wxmall.dreame.tech, app.mixcapp.com, gw2c-hw-open.longfor.com, member-center.miniso.com, m.xiaomiyoupin.com
