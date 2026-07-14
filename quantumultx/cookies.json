@@ -1,0 +1,29 @@
+{
+  "name": "获取 Cookies",
+  "description": "由 Loon cookies.plugin 转换生成，包含签到任务所需的 Cookie 获取重写规则",
+  "rewrite": [
+    "^https:\\/\\/personal-act\\.wps\\.cn\\/activity-rubik\\/activity\\/page_info url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.cookie.js, tag=WPS Cookie, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/wps.png, enable=true",
+    "^https:\\/\\/u6\\.y\\.qq\\.com\\/cgi-bin\\/musics\\.fcg\\?.*EveryDaySignLvzScore url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/qqmusic/qqmusic.js, tag=QQ音乐 Cookie, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/qqmusic.png, enable=true",
+    "^https?:\\/\\/(m5(|-zb)|dache)\\.amap\\.com\\/(ws\\/yuece\\/(act|openapi\\/activity\\/current)\\/query|common\\/(alipaymini|wxmini)\\_ENCRYPT=) url script-response-body https://raw.githubusercontent.com/wf021325/qx/master/task/ampDache.js, tag=高德打车cookies, img-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/GaodeMap.jpg, enable=true",
+    "^https:\\/\\/shop-api\\.retail\\.mi\\.com\\/mtop\\/mf\\/act\\/infinite\\/(do|done) url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/mishop/mishop.cookie.js, tag=小米商城 Cookie, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/mishop.png, enable=true",
+    "^https:\\/\\/user-api-prd-mx\\.wandafilm\\.com\\/user\\/user_info url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wanda/wanda.cookie.js, tag=万达电影 Cookie, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/wanda.png, enable=true",
+    "^https:\\/\\/cn-wxmall\\.dreame\\.tech\\/main\\/my\\/info url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/dreame/dreame.js, tag=追觅 Cookie, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/dreame.png, enable=true",
+    "^https:\\/\\/app\\.mixcapp\\.com\\/mixc\\/api\\/v4\\/member\\/getPersonalData url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/newmixc/newmixc.cookie.js, tag=一点万象 Cookie, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/newmixc.png, enable=true",
+    "^https:\\/\\/gw2c-hw-open\\.longfor\\.com\\/lmarketing-task-api-mvc-prod\\/openapi\\/task\\/v1\\/signature\\/clock$ url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/miniprogram/lhtj/lhtj.js, tag=龙湖天街 Cookie, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/lhtj.png, enable=true",
+    "^https:\\/\\/member-center\\.miniso\\.com\\/userinfo\\/userinfo\\/GetUserInfoV3 url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/miniprogram/miniso/miniso.js, tag=名创优品 Cookie, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/miniso.png, enable=true",
+    "^https:\\/\\/m\\.xiaomiyoupin\\.com\\/mtop\\/act\\/redPacketSign\\/getActInfo url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/youpin/youpin.js, tag=有品 Cookie, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/youpin.png, enable=true",
+    "^https:\\/\\/shop-api\\.retail\\.mi\\.com\\/mtop\\/navi\\/venue\\/batch url script-request-body https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/milottery/milottery.js, tag=小米抽奖 Cookie, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/mishop.png, enable=true"
+  ],
+  "mitm": [
+    "personal-act.wps.cn",
+    "u6.y.qq.com",
+    "*.amap.com",
+    "shop-api.retail.mi.com",
+    "user-api-prd-mx.wandafilm.com",
+    "cn-wxmall.dreame.tech",
+    "app.mixcapp.com",
+    "gw2c-hw-open.longfor.com",
+    "member-center.miniso.com",
+    "m.xiaomiyoupin.com"
+  ]
+}
