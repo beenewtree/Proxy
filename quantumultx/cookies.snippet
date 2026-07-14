@@ -1,7 +1,6 @@
 #!name=获取 Cookies
 
-hostname = personal-act.wps.cn, u6.y.qq.com, *.amap.com, shop-api.retail.mi.com, user-api-prd-mx.wandafilm.com, cn-wxmall.dreame.tech, app.mixcapp.com, gw2c-hw-open.longfor.com, member-center.miniso.com, m.xiaomiyoupin.com
-
+hostname = personal-act.wps.cn, u6.y.qq.com, *.amap.com, shop-api.retail.mi.com, user-api-prd-mx.wandafilm.com, cn-wxmall.dreame.tech, app.mixcapp.com, gw2c-hw-open.longfor.com, member-center.miniso.com, m.xiaomiyoupin.com, xunting.vbegin.com.cn
 
 
 # WPS Cookie
@@ -36,3 +35,5 @@ hostname = personal-act.wps.cn, u6.y.qq.com, *.amap.com, shop-api.retail.mi.com,
 
 # 小米抽奖 Cookie
 ^https:\/\/shop-api\.retail\.mi\.com\/mtop\/navi\/venue\/batch url script-request-body https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/milottery/milottery.js
+
+^https:\/\/xunting\.vbegin\.com\.cn\/sns\/app url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/tingtingfm/tingtingfm.js
