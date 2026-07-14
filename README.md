@@ -15,6 +15,21 @@ http-request ^https:\/\/api\.example\.com\/path tag=示例 Cookie, script-path=.
 cron "0 8 * * *" script-path=..., tag=示例签到, ...
 ```
 
+本仓库也支持 Quantumult X 配置助手 `/qx`，可快速添加 Quantumult X 的 `hostname`、`rewrite_local` 和 `task_local` 配置。
+
+```
+/qx
+
+[MITM]
+hostname = xunting.vbegin.com.cn
+
+[rewrite_local]
+^https:\/\/xunting\.vbegin\.com\.cn\/sns\/app url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/tingtingfm/tingtingfm.js
+
+[task_local]
+20 9 * * * https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/tingtingfm/tingtingfm.js, tag=听听FM签到, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/tingtingfm.png, enabled=true
+```
+
 技能会自动将内容分发到对应文件并提交推送。
 
 ---
