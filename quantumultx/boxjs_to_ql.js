@@ -18,52 +18,64 @@ const FILTER_KEYWORDS = ['cookie', 'token', 'session', 'auth', 'sign', 'hd', 'to
 const $ = new Env("BoxJS全自动同步");
 
 async function main() {
-  $.log("开始扫描 QX 本地存储...");
+  $.log("1. 脚本启动，准备读取本地 Keys...");
+  
+  let allKeys = [];
+  try {
+    // 部分设备存储数据极多时此步可能较慢，加入 try-catch
+    allKeys = $prefs.allKeys() || [];
+    $.log(`2. 成功读取本地 Key 列表，共找到 ${allKeys.length} 个键值`);
+  } catch (e) {
+    $.log(`【错误】读取 $prefs.allKeys 失败: ${e.message || e}`);
+    $.done();
+    return;
+  }
 
-  // 获取 QX 数据库中存储的所有键值对
-  const allKeys = $prefs.allKeys();
-  if (!allKeys || allKeys.length === 0) {
-    $.msg("BoxJS自动同步", "失败", "QX 本地未找到任何存储数据");
+  if (allKeys.length === 0) {
+    $.log("【警告】未在 QX 本地找到任何存储数据");
     $.done();
     return;
   }
 
   const uploadList = [];
+  $.log("3. 开始筛选匹配 Cookie 关键字...");
 
   for (const key of allKeys) {
-    // 过滤出包含关键字的 key
     const isTarget = FILTER_KEYWORDS.some(keyword => key.toLowerCase().includes(keyword));
-    
     if (isTarget) {
       const value = $prefs.valueForKey(key);
       if (value && typeof value === 'string') {
-        // 自动映射规则：转换为规范的环境变量名（大写，去除非法字符）
         const qlName = key.replace(/[^a-zA-Z0-9_]/g, '_').toUpperCase();
-        
         uploadList.push({
           name: qlName,
           value: value,
           remarks: `自动同步于 ${new Date().toLocaleDateString()}`
         });
-        $.log(`[自动识别] Key: ${key} -> 青龙变量: ${qlName}`);
       }
     }
   }
 
+  $.log(`4. 筛选完成！共自动识别到 ${uploadList.length} 个符合条件的变量`);
   if (uploadList.length === 0) {
-    $.log("未在 QX 本地存储中扫描到任何带有 cookie/token 等特征的有效数据。");
+    $.log("【结束】未在本地找到任何匹配 cookie/token 关键字的数据。");
     $.done();
     return;
   }
 
-  $.log(`共自动识别到 ${uploadList.length} 个变量，开始推送到青龙...`);
-
+  $.log("5. 准备请求青龙面板获取 Token...");
   try {
-    const token = await getQLToken();
-    if (!token) throw new Error("获取青龙 Token 失败，请检查配置或网络。");
+    // 带有 10 秒超时控制的 Token 获取
+    const token = await Promise.race([
+      getQLToken(),
+      new Promise((_, reject) => setTimeout(() => reject(new Error("连接青龙面板超时 (10s)，请检查 IP 端口是否能跨网通车。")), 10000))
+    ]);
 
-    // 获取青龙现有的所有环境变量
+    if (!token) throw new Error("获取青龙 Token 失败，返回数据为空。");
+    $.log("6. 成功获取青龙 Token，开始拉取青龙环境变量列表...");
+
     const currentEnvs = await getQLEnvs(token);
+    $.log(`7. 成功获取青龙现有变量，共 ${currentEnvs.length} 个，开始比对并推送...`);
+
     let addCount = 0;
     let updateCount = 0;
     
@@ -76,7 +88,8 @@ async function main() {
           $.log(`[更新成功] ${item.name}`);
           updateCount++;
         } else {
-          $.log(`[无需更新] ${item.name} 值未改变`);
+          // 值一样就不重复请求了，节省连接
+          updateCount++;
         }
       } else {
         await createQLEnv(token, item.name, item.value, item.remarks);
@@ -86,33 +99,44 @@ async function main() {
     }
     $.msg("BoxJS自动同步", "同步成功", `新增: ${addCount} 个，更新: ${updateCount} 个`);
   } catch (err) {
+    $.log(`【发生严重错误】: ${err.message || err}`);
     $.msg("BoxJS自动同步", "同步发生错误", err.message || err);
   } finally {
+    $.log("8. 脚本运行结束。");
     $.done();
   }
 }
 
-// ========== 青龙 API 封装 ==========
+// ========== 带超时的青龙 API 封装 ==========
 function getQLToken() {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const url = `${QL_CONFIG.host}/open/auth/token?client_id=${QL_CONFIG.client_id}&client_secret=${QL_CONFIG.client_secret}`;
-    $task.fetch({ url }).then(response => {
-      const res = JSON.parse(response.body);
-      resolve(res.code === 200 ? res.data.token : null);
-    }, () => resolve(null));
+    $task.fetch({ url, opts: { timeout: 8 } }).then(response => {
+      try {
+        const res = JSON.parse(response.body);
+        resolve(res.code === 200 ? res.data.token : null);
+      } catch (e) {
+        reject(new Error("解析青龙 Token 返回 JSON 失败"));
+      }
+    }, err => reject(err));
   });
 }
 
 function getQLEnvs(token) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const url = `${QL_CONFIG.host}/open/envs`;
     $task.fetch({
       url,
-      headers: { "Authorization": `Bearer ${token}` }
+      headers: { "Authorization": `Bearer ${token}` },
+      opts: { timeout: 8 }
     }).then(response => {
-      const res = JSON.parse(response.body);
-      resolve(res.code === 200 ? res.data : []);
-    }, () => resolve([]));
+      try {
+        const res = JSON.parse(response.body);
+        resolve(res.code === 200 ? res.data : []);
+      } catch (e) {
+        reject(new Error("解析青龙环境变量返回 JSON 失败"));
+      }
+    }, err => reject(err));
   });
 }
 
@@ -126,10 +150,15 @@ function createQLEnv(token, name, value, remarks) {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify([{ name, value, remarks }])
+      body: JSON.stringify([{ name, value, remarks }]),
+      opts: { timeout: 5 }
     }).then(response => {
-      const res = JSON.parse(response.body);
-      res.code === 200 ? resolve() : reject(res.message);
+      try {
+        const res = JSON.parse(response.body);
+        res.code === 200 ? resolve() : reject(res.message);
+      } catch (e) {
+        reject(new Error("创建变量返回解析失败"));
+      }
     }, err => reject(err));
   });
 }
@@ -147,10 +176,15 @@ function updateQLEnv(token, id, name, value, remarks) {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(bodyData)
+      body: JSON.stringify(bodyData),
+      opts: { timeout: 5 }
     }).then(response => {
-      const res = JSON.parse(response.body);
-      res.code === 200 ? resolve() : reject(res.message);
+      try {
+        const res = JSON.parse(response.body);
+        res.code === 200 ? resolve() : reject(res.message);
+      } catch (e) {
+        reject(new Error("更新变量返回解析失败"));
+      }
     }, err => reject(err));
   });
 }
