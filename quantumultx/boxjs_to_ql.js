@@ -1,23 +1,15 @@
-// ============ BoxJs 全量推送到青龙面板（修正版） ============
-const qlUrl = 'http://192.168.2.1:5700';   // 👈 改成你的青龙地址
-const clientId = 'hA_7ROztf_bd';              // 👈 改成你的
-const clientSecret = 'OW-BvxroMs1oftakH3r95JcX';      // 👈 改成你的
+// ============ BoxJs → 青龙 推送脚本（HTTP 后端版） ============
+// 通过 QX HTTP 后端获取数据，无需 $persistentStore 权限
+
+const qlUrl = 'http://192.168.2.1:5700';   // 青龙地址
+const clientId = 'hA_7ROztf_bd';
+const clientSecret = 'OW-BvxroMs1oftakH3r95JcX';
+
+// QX HTTP 后端端口（默认 9999，如果改过请修改）
+const boxJsPort = 9999;
+const boxJsUrl = `http://127.0.0.1:${boxJsPort}/boxdata`;
 
 // ============================================================
-
-// 检查配置
-if (!qlUrl || !clientId || !clientSecret) {
-    console.log('❌ 配置不完整，请检查 qlUrl、clientId、clientSecret');
-    $done();
-    return;
-}
-
-// 检查 $persistentStore 是否可用
-if (typeof $persistentStore === 'undefined') {
-    console.log('❌ $persistentStore 不可用，请确保已开启“允许脚本访问持久化存储”');
-    $done();
-    return;
-}
 
 let token = '';
 
@@ -39,7 +31,7 @@ async function getToken() {
         token = body.data.token;
         console.log('✅ 青龙 Token 获取成功');
     } else {
-        throw new Error('获取 token 失败，返回：' + JSON.stringify(body));
+        throw new Error('获取 token 失败：' + JSON.stringify(body));
     }
 }
 
@@ -79,11 +71,26 @@ async function createEnv(name, value) {
 
 (async () => {
     try {
+        // 1. 获取青龙 token
         await getToken();
 
-        const allData = $persistentStore.all();
-        const entries = Object.entries(allData).filter(([k, v]) => k && v);
-
+        // 2. 通过 HTTP 后端获取 BoxJs 全部数据
+        console.log('📡 从 QX HTTP 后端读取 BoxJs 数据...');
+        const boxResp = await $task.fetch({
+            url: boxJsUrl,
+            method: 'GET',
+            timeout: 10
+        });
+        const allData = JSON.parse(boxResp.body);
+        
+        // 数据可能是对象 {key:value,...} 或数组 [{key,val},...]
+        let entries = [];
+        if (Array.isArray(allData)) {
+            entries = allData.filter(item => item.key && item.val).map(item => [item.key, item.val]);
+        } else if (typeof allData === 'object') {
+            entries = Object.entries(allData).filter(([k, v]) => k && v);
+        }
+        
         if (entries.length === 0) {
             console.log('⚠️ BoxJs 中没有数据，跳过同步');
             $done();
@@ -93,7 +100,6 @@ async function createEnv(name, value) {
         console.log(`📦 读取到 ${entries.length} 个变量，开始同步...`);
 
         let success = 0, fail = 0;
-
         for (const [key, value] of entries) {
             try {
                 const envId = await searchEnv(key);
