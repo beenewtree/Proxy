@@ -18,50 +18,40 @@ const FILTER_KEYWORDS = ['cookie', 'token', 'session', 'auth', 'sign', 'hd', 'to
 const $ = new Env("BoxJS全自动同步");
 
 async function main() {
-  $.log("开始获取 BoxJS 备份数据...");
-  
-  // QX 存储 BoxJS 数据的默认键名
-  const boxjsDataStr = $prefs.valueForKey('boxjs_user_cfg');
-  if (!boxjsDataStr) {
-    $.msg("BoxJS自动同步", "失败", "未在本地找到 BoxJS 的配置数据(boxjs_user_cfg)");
-    $.done();
-    return;
-  }
+  $.log("开始扫描 QX 本地存储...");
 
-  let boxjsData;
-  try {
-    boxjsData = JSON.parse(boxjsDataStr);
-  } catch (e) {
-    $.msg("BoxJS自动同步", "失败", "解析 BoxJS 数据 JSON 失败");
+  // 获取 QX 数据库中存储的所有键值对
+  const allKeys = $prefs.allKeys();
+  if (!allKeys || allKeys.length === 0) {
+    $.msg("BoxJS自动同步", "失败", "QX 本地未找到任何存储数据");
     $.done();
     return;
   }
 
   const uploadList = [];
-  
-  // 遍历 BoxJS 中所有的键值对
-  for (const key in boxjsData) {
-    const value = boxjsData[key];
-    if (!value || typeof value !== 'string') continue;
 
-    // 自动匹配包含关键字的 Key
+  for (const key of allKeys) {
+    // 过滤出包含关键字的 key
     const isTarget = FILTER_KEYWORDS.some(keyword => key.toLowerCase().includes(keyword));
     
     if (isTarget) {
-      // 【自动映射规则】将 key 转换为规范的青龙环境变量名（如: chavy_cookie_wyy -> CHAVY_COOKIE_WYY）
-      const qlName = key.replace(/[^a-zA-Z0-9_]/g, '_').toUpperCase();
-      
-      uploadList.push({
-        name: qlName,
-        value: value,
-        remarks: `自动同步于 ${new Date().toLocaleDateString()}`
-      });
-      $.log(`[自动识别] Key: ${key} -> 青龙变量: ${qlName}`);
+      const value = $prefs.valueForKey(key);
+      if (value && typeof value === 'string') {
+        // 自动映射规则：转换为规范的环境变量名（大写，去除非法字符）
+        const qlName = key.replace(/[^a-zA-Z0-9_]/g, '_').toUpperCase();
+        
+        uploadList.push({
+          name: qlName,
+          value: value,
+          remarks: `自动同步于 ${new Date().toLocaleDateString()}`
+        });
+        $.log(`[自动识别] Key: ${key} -> 青龙变量: ${qlName}`);
+      }
     }
   }
 
   if (uploadList.length === 0) {
-    $.log("未在 BoxJS 中匹配到任何带有 cookie/token 等特征的有效数据。");
+    $.log("未在 QX 本地存储中扫描到任何带有 cookie/token 等特征的有效数据。");
     $.done();
     return;
   }
@@ -80,7 +70,6 @@ async function main() {
     for (const item of uploadList) {
       const matched = currentEnvs.find(e => e.name === item.name);
       if (matched) {
-        // 如果值变了才更新，减少对青龙的无效网络请求
         if (matched.value !== item.value) {
           const id = matched.id || matched._id;
           await updateQLEnv(token, id, item.name, item.value, item.remarks);
@@ -90,7 +79,6 @@ async function main() {
           $.log(`[无需更新] ${item.name} 值未改变`);
         }
       } else {
-        // 不存在则直接自动新增
         await createQLEnv(token, item.name, item.value, item.remarks);
         $.log(`[新增成功] ${item.name}`);
         addCount++;
