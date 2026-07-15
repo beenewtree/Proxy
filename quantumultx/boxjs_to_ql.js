@@ -3,8 +3,8 @@
 // 配置：修改下方 3 个参数即可
 
 const qlUrl = 'http://192.168.2.1:5700';   // 👈 青龙面板地址
-const clientId = 'hA_7ROztf_bd';              // 👈 替换
-const clientSecret = 'OW-BvxroMs1oftakH3r95JcX';      // 👈 替换
+const clientId = '';              // 👈 替换
+const clientSecret = '';      // 👈 替换
 
 // ============================================================
 
