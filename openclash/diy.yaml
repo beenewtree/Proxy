@@ -352,7 +352,6 @@ proxy-groups:
 # ============================================================
 # rules:
 #   - DOMAIN-SUFFIX,example.com,🚀 Proxy
-  - DOMAIN-SUFFIX,azure.com,🎯 自动选择
   - DOMAIN-SUFFIX,stackoverflow.com,🎯 自动选择
   - DOMAIN-SUFFIX,medium.com,🎯 自动选择
   - DOMAIN-SUFFIX,notion.com,🎯 自动选择
