@@ -23,6 +23,22 @@ proxy-groups:
       - "🇹🇼 台湾"
       - "🇰🇷 韩国"
       - "🇦🇺 澳大利亚"
+      - "🇩🇪 德国"
+      - "🇬🇧 英国"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "🇮🇳 印度"
+      - "🇹🇭 泰国"
+      - "🇲🇾 马来西亚"
+      - "🇵🇭 菲律宾"
+      - "🇦🇪 阿联酋"
+      - "🇹🇷 土耳其"
+      - "🇨🇭 瑞士"
+      - "🇺🇦 乌克兰"
+      - "🇳🇬 尼日利亚"
+      - "🇿🇦 南非"
+      - "🇮🇶 伊拉克"
+      - "🇦🇷 阿根廷"
       - DIRECT
       - REJECT
 
@@ -37,6 +53,13 @@ proxy-groups:
       - "🇹🇼 台湾"
       - "🇰🇷 韩国"
       - "🇦🇺 澳大利亚"
+      - "🇩🇪 德国"
+      - "🇬🇧 英国"
+      - "🇨🇦 加拿大"
+      - "🇷🇺 俄罗斯"
+      - "🇮🇳 印度"
+      - "🇹🇭 泰国"
+      - "🇲🇾 马来西亚"
       - DIRECT
     url: "https://www.gstatic.com/generate_204"
     interval: 300
@@ -117,6 +140,166 @@ proxy-groups:
     type: select
     include-all: true
     filter: "^(?=.*🇦🇺|.*澳大利亚|.*AU)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇩🇪 德国 ──────────────────────────────────────────
+  - name: "🇩🇪 德国"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇩🇪|.*德国|.*DE)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇬🇧 英国 ──────────────────────────────────────────
+  - name: "🇬🇧 英国"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇬🇧|.*英国|.*UK)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇨🇦 加拿大 ────────────────────────────────────────
+  - name: "🇨🇦 加拿大"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇨🇦|.*加拿大|.*CA)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇷🇺 俄罗斯 ──────────────────────────────────────
+  - name: "🇷🇺 俄罗斯"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇷🇺|.*俄罗斯|.*RU)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇮🇳 印度 ──────────────────────────────────────────
+  - name: "🇮🇳 印度"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇮🇳|.*印度|.*IN)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇹🇭 泰国 ──────────────────────────────────────────
+  - name: "🇹🇭 泰国"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇹🇭|.*泰国|.*TH)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇲🇾 马来西亚 ────────────────────────────────────
+  - name: "🇲🇾 马来西亚"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇲🇾|.*马来西亚|.*MY)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇵🇭 菲律宾 ──────────────────────────────────────
+  - name: "🇵🇭 菲律宾"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇵🇭|.*菲律宾|.*PH)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇦🇪 阿联酋 ──────────────────────────────────────
+  - name: "🇦🇪 阿联酋"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇦🇪|.*阿联酋|.*AE)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇹🇷 土耳其 ──────────────────────────────────────
+  - name: "🇹🇷 土耳其"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇹🇷|.*土耳其|.*TR)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇨🇭 瑞士 ──────────────────────────────────────────
+  - name: "🇨🇭 瑞士"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇨🇭|.*瑞士|.*CH)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇺🇦 乌克兰 ──────────────────────────────────────
+  - name: "🇺🇦 乌克兰"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇺🇦|.*乌克兰|.*UA)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇳🇬 尼日利亚 ────────────────────────────────────
+  - name: "🇳🇬 尼日利亚"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇳🇬|.*尼日利亚|.*NG)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇿🇦 南非 ──────────────────────────────────────────
+  - name: "🇿🇦 南非"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇿🇦|.*南非|.*ZA)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇮🇶 伊拉克 ──────────────────────────────────────
+  - name: "🇮🇶 伊拉克"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇮🇶|.*伊拉克|.*IQ)"
+    proxies:
+      - "🎯 自动选择"
+      - "♻️ 故障转移"
+      - DIRECT
+
+  # ─── 🇦🇷 阿根廷 ──────────────────────────────────────
+  - name: "🇦🇷 阿根廷"
+    type: select
+    include-all: true
+    filter: "^(?=.*🇦🇷|.*阿根廷|.*AR)"
     proxies:
       - "🎯 自动选择"
       - "♻️ 故障转移"
