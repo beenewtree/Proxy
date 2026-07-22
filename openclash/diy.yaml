@@ -489,93 +489,23 @@ proxy-groups:
       - "🇸🇬 新加坡"
 
 # ============================================================
-# 规则 — 如需自定义规则，取消注释并添加到下方
-# 格式：- DOMAIN-SUFFIX,example.com,策略组名
-# 如果不需要覆写规则（保留订阅的规则），请保持此 section 被注释
+# 规则 — 自定义规则优先，GEOSITE/GEOIP 兜底
 # ============================================================
-# rules:
-#   - DOMAIN-SUFFIX,example.com,🚀 Proxy
-  - DOMAIN-SUFFIX,digitalocean.com,🎯 自动选择
+rules:
 
-  # ═══════════════════════════════════════════════════════
-  # 7. 港台地区服务
-  # ═══════════════════════════════════════════════════════
-  - DOMAIN-SUFFIX,viu.tv,🇭🇰 香港
-  - DOMAIN-SUFFIX,viu.com,🇭🇰 香港
-  - DOMAIN-SUFFIX,mytvsuper.com,🇭🇰 香港
-  - DOMAIN-SUFFIX,hboasia.com,🇭🇰 香港
+  # ─── 自定义规则（优先生效）─────────────────────────────
+  # 格式：- DOMAIN-SUFFIX,域名,策略组名
+  # 需要追加规则时直接加在这里，改一处所有设备同步
+  # 例如：
+  # - DOMAIN-SUFFIX,netflix.com,🎥 Netflix
+  # - DOMAIN-SUFFIX,github.com,😺 GitHub
+  # - DOMAIN-SUFFIX,bilibili.com,📺 哔哩哔哩
 
-  # ═══════════════════════════════════════════════════════
-  # 8. 国内服务 → DIRECT（全部直连）
-  # ═══════════════════════════════════════════════════════
-  - DOMAIN-SUFFIX,qq.com,DIRECT
-  - DOMAIN-SUFFIX,y.qq.com,DIRECT
-  - DOMAIN-SUFFIX,music.qq.com,DIRECT
-  - DOMAIN-SUFFIX,tencent.com,DIRECT
-  - DOMAIN-SUFFIX,tencentmusic.com,DIRECT
-  - DOMAIN-KEYWORD,qqmusic,DIRECT
-  - DOMAIN-SUFFIX,netease.com,DIRECT
-  - DOMAIN-SUFFIX,163.com,DIRECT
-  - DOMAIN-SUFFIX,music.163.com,DIRECT
-  - DOMAIN-SUFFIX,xiami.com,DIRECT
-  - DOMAIN-SUFFIX,kugou.com,DIRECT
-  - DOMAIN-SUFFIX,kuwo.cn,DIRECT
-  - DOMAIN-SUFFIX,weixin.com,DIRECT
-  - DOMAIN-SUFFIX,wechat.com,DIRECT
-  - DOMAIN-SUFFIX,wx.qq.com,DIRECT
-  - DOMAIN-SUFFIX,weibo.com,DIRECT
-  - DOMAIN-SUFFIX,weibo.cn,DIRECT
-  - DOMAIN-SUFFIX,zhihu.com,DIRECT
-  - DOMAIN-SUFFIX,douban.com,DIRECT
-  - DOMAIN-SUFFIX,bilibili.com,DIRECT
-  - DOMAIN-SUFFIX,b23.tv,DIRECT
-  - DOMAIN-SUFFIX,hdslb.com,DIRECT
-  - DOMAIN-SUFFIX,taobao.com,DIRECT
-  - DOMAIN-SUFFIX,tmall.com,DIRECT
-  - DOMAIN-SUFFIX,jd.com,DIRECT
-  - DOMAIN-SUFFIX,pinduoduo.com,DIRECT
-  - DOMAIN-SUFFIX,suning.com,DIRECT
-  - DOMAIN-SUFFIX,alipay.com,DIRECT
-  - DOMAIN-SUFFIX,alipayobjects.com,DIRECT
-  - DOMAIN-SUFFIX,unionpay.com,DIRECT
-  - DOMAIN-SUFFIX,tenpay.com,DIRECT
-  - DOMAIN-SUFFIX,youku.com,DIRECT
-  - DOMAIN-SUFFIX,iqiyi.com,DIRECT
-  - DOMAIN-SUFFIX,qiyi.com,DIRECT
-  - DOMAIN-SUFFIX,tudou.com,DIRECT
-  - DOMAIN-SUFFIX,mgtv.com,DIRECT
-  - DOMAIN-SUFFIX,letv.com,DIRECT
-  - DOMAIN-SUFFIX,sohu.com,DIRECT
-  - DOMAIN-SUFFIX,acfun.cn,DIRECT
-  - DOMAIN-SUFFIX,dianping.com,DIRECT
-  - DOMAIN-SUFFIX,meituan.com,DIRECT
-  - DOMAIN-SUFFIX,ctrip.com,DIRECT
-  - DOMAIN-SUFFIX,fliggy.com,DIRECT
-  - DOMAIN-SUFFIX,12306.cn,DIRECT
-  - DOMAIN-SUFFIX,amap.com,DIRECT
-  - DOMAIN-SUFFIX,autonavi.com,DIRECT
-  - DOMAIN-SUFFIX,bdimg.com,DIRECT
-  - DOMAIN-SUFFIX,bdstatic.com,DIRECT
-  - DOMAIN-SUFFIX,baidu.com,DIRECT
-  - DOMAIN-SUFFIX,baiducontent.com,DIRECT
-  - DOMAIN-SUFFIX,aliyun.com,DIRECT
-  - DOMAIN-SUFFIX,aliyuncs.com,DIRECT
-  - DOMAIN-SUFFIX,tencent-cloud.com,DIRECT
-  - DOMAIN-SUFFIX,qcloud.com,DIRECT
-  - DOMAIN-SUFFIX,dingtalk.com,DIRECT
-  - DOMAIN-SUFFIX,larkoffice.com,DIRECT
-  - DOMAIN-SUFFIX,feishu.cn,DIRECT
-  - DOMAIN-SUFFIX,wps.cn,DIRECT
-  - DOMAIN-SUFFIX,miyoushe.com,DIRECT
-  - DOMAIN-SUFFIX,hoyoverse.com,DIRECT
-  - DOMAIN-SUFFIX,yuanshen.com,DIRECT
+  # ─── 国内网站直连（GEOSITE 自动匹配）────────────────
+  - GEOSITE,cn,DIRECT
 
-  # ═══════════════════════════════════════════════════════
-  # 9. GEOIP 国内 IP → DIRECT
-  # ═══════════════════════════════════════════════════════
+  # ─── 国内 IP 直连 ─────────────────────────────────────
   - GEOIP,CN,DIRECT
 
-  # ═══════════════════════════════════════════════════════
-  # 10. FINAL 兜底 → 🎯 自动选择
-  # ═══════════════════════════════════════════════════════
-  - MATCH,🎯 自动选择
+  # ─── 漏网之鱼 → 主策略组 ─────────────────────────────
+  - MATCH,🚀 Proxy
