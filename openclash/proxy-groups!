@@ -156,3 +156,9 @@ proxy-groups!:
     include-all: true
     filter: "🇦🇺|🇩🇪|🇬🇧|🇨🇦|🇷🇺|🇮🇳|🇹🇭|🇲🇾|🇵🇭|🇦🇪|🇹🇷|🇨🇭|🇺🇦|🇳🇬|🇿🇦|🇮🇶|🇦🇷|懒人"
     proxies: []
+# 示例：向 rules 开头插入规则（优先匹配）
++rules:
+  - DOMAIN-SUFFIX,ubi.com,DIRECT
+  - DOMAIN-SUFFIX,ubisoft.com,DIRECT
+  - DOMAIN-SUFFIX,fuliba2023.net,DIRECT
+  - DOMAIN-SUFFIX,steamcommunity.com,🇭🇰 香港
