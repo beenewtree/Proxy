@@ -140,14 +140,14 @@ proxy-groups!:
   - name: "🇹🇼 台湾"
     type: select
     include-all: true
-    filter: "🇹🇼|台湾"
+    filter: "台湾"
     proxies: []
 
   # ─── 🇰🇷 韩国 ──────────────────────────────────────────
   - name: "🇰🇷 韩国"
     type: select
     include-all: true
-    filter: "🇰🇷|韩国"
+    filter: "韩国"
     proxies: []
 
   # ─── 🌐 其它地区（非主力地区的兜底）────────────────────
