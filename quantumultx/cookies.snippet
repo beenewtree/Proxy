@@ -1,6 +1,6 @@
 #!name=获取 Cookies
 
-hostname = personal-act.wps.cn, u6.y.qq.com, *.amap.com, shop-api.retail.mi.com, user-api-prd-mx.wandafilm.com, cn-wxmall.dreame.tech, app.mixcapp.com, gw2c-hw-open.longfor.com, member-center.miniso.com, m.xiaomiyoupin.com, xunting.vbegin.com.cn, cn-yx-wxmall.dreame.tech, popvip.paquapp.com
+hostname = personal-act.wps.cn, u6.y.qq.com, *.amap.com, shop-api.retail.mi.com, user-api-prd-mx.wandafilm.com, cn-wxmall.dreame.tech, app.mixcapp.com, gw2c-hw-open.longfor.com, member-center.miniso.com, m.xiaomiyoupin.com, xunting.vbegin.com.cn, cn-yx-wxmall.dreame.tech, popvip.paquapp.com, superapp-public.kiwa-tech.com
 
 
 # WPS Cookie
@@ -42,3 +42,5 @@ hostname = personal-act.wps.cn, u6.y.qq.com, *.amap.com, shop-api.retail.mi.com,
 ^https:\/\/xunting\.vbegin\.com\.cn\/sns\/app url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/tingtingfm/tingtingfm.js
 
 ^https:\/\/popvip\.paquapp\.com\/miniapp\/v2\/(svip_lite\/user_info|wechat_message\/template_info) url script-response-body https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/miniprogram/ppmt/ppmt.js
+
+^https:\/\/superapp-public\.kiwa-tech\.com\/activity\/wxapp\/signin\/(query|querySite|querySwitch|queryFragment|signin) url script-request-header https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/miniprogram/haidilao/haidilao.js
