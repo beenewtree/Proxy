@@ -1,0 +1,12 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^python -m json\\.tool \\.\\\\quantumultx\\\\task\\.json \\| Out-Null; git diff -- \\.\\\\quantumultx\\\\cookies\\.snippet \\.\\\\quantumultx\\\\task\\.json$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^git status --short; git add quantumultx/cookies\\.snippet quantumultx/task\\.json; git commit -m \"feat\\(qx\\): 添加海底捞签到配置\"; git push$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
