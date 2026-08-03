@@ -76,14 +76,32 @@ hostname = existing.domain1.com, existing.domain2.com, new.domain.com
    - 在数组末尾追加新任务行，保持 JSON 语法有效
 5. 验证：读取文件确认写入是否正确
 6. **提交并推送代码**：
-   - 运行 `cd d:\github\Proxy; git add -A` 暂存所有修改
-   - 运行 `cd d:\github\Proxy; git diff --cached` 查看暂存内容，提取变更摘要
+   - 先检查当前改动：`cd d:\github\Proxy; git status --short`
+   - 仅提交相关文件：`cd d:\github\Proxy; git add quantumultx/cookies.snippet quantumultx/task.json`
+   - 查看暂存内容：`cd d:\github\Proxy; git diff --cached`
    - 根据修改内容生成规范的提交信息，格式为 `feat(模块名): 中文描述`，如：
      - `feat(lhtj): 添加龙湖天街签到配置`
+     - `feat(qx): 添加海底捞签到配置`
      - `fix(cookies): 修复 Cookie 脚本路径`
-   - 在提交信息正文中用 `-` 列表逐项描述每个文件的变更内容
-   - 运行 `cd d:\github\Proxy; git commit -m "<信息>"` 提交
-   - 运行 `cd d:\github\Proxy; git push` 推送到远程仓库
+   - 执行提交：`cd d:\github\Proxy; git commit -m "<信息>"`
+   - 推送到远程：`cd d:\github\Proxy; git push`
+   - 若需要，可在提交后再执行 `cd d:\github\Proxy; git log -1 --oneline` 查看最新提交
+
+### 7. 当用户明确要求“提交并推送”时
+
+若用户在写入配置后直接说“提交并推送”或“提交推送”，则按以下默认流程执行：
+
+1. 先确认当前仓库状态：`cd d:\github\Proxy; git status --short`
+2. 仅提交与本次 Quantumult X 配置相关的文件：
+   - `cd d:\github\Proxy; git add quantumultx/cookies.snippet quantumultx/task.json`
+3. 检查暂存内容是否符合预期：`cd d:\github\Proxy; git diff --cached`
+4. 生成提交信息，优先使用 `feat(qx): ...` 或 `fix(qx): ...` 的格式，例如：
+   - `feat(qx): 添加海底捞签到配置`
+   - `feat(qx): 添加林里签到兑换配置`
+5. 执行提交与推送：
+   - `cd d:\github\Proxy; git commit -m "<信息>"`
+   - `cd d:\github\Proxy; git push`
+6. 如果存在其他无关改动，默认不纳入本次提交，除非用户明确要求一起提交。
 
 ## 使用方法
 
