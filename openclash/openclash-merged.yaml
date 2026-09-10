@@ -1,0 +1,215 @@
+# ==========================================================
+# OpenClash / Mihomo 统一配置
+# PRPR + 赔钱机场
+# 策略组、规则集和规则由远程 overwrite 模块提供
+# ==========================================================
+
+port: 47890
+socks-port: 47891
+redir-port: 47892
+mixed-port: 47893
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:8964
+clash-for-android:
+  append-system-dns: false
+profile:
+  tracing: true
+  store-selected: true
+dns:
+  enable: true
+  listen: 127.0.0.1:1053
+  ipv6: false
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 180.184.1.1
+    - 114.114.114.114
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - stun.*.*.*
+    - stun.*.*
+    - time.windows.com
+    - time.nist.gov
+    - time.apple.com
+    - time.asia.apple.com
+    - '*.ntp.org.cn'
+    - '*.openwrt.pool.ntp.org'
+    - time1.cloud.tencent.com
+    - time.ustc.edu.cn
+    - pool.ntp.org
+    - ntp.ubuntu.com
+    - ntp.aliyun.com
+    - ntp1.aliyun.com
+    - ntp2.aliyun.com
+    - ntp3.aliyun.com
+    - ntp4.aliyun.com
+    - ntp5.aliyun.com
+    - ntp6.aliyun.com
+    - ntp7.aliyun.com
+    - time1.aliyun.com
+    - time2.aliyun.com
+    - time3.aliyun.com
+    - time4.aliyun.com
+    - time5.aliyun.com
+    - time6.aliyun.com
+    - time7.aliyun.com
+    - '*.time.edu.cn'
+    - time1.apple.com
+    - time2.apple.com
+    - time3.apple.com
+    - time4.apple.com
+    - time5.apple.com
+    - time6.apple.com
+    - time7.apple.com
+    - time1.google.com
+    - time2.google.com
+    - time3.google.com
+    - time4.google.com
+    - alt1-mtalk.google.com
+    - alt2-mtalk.google.com
+    - alt3-mtalk.google.com
+    - alt4-mtalk.google.com
+    - alt5-mtalk.google.com
+    - alt6-mtalk.google.com
+    - alt7-mtalk.google.com
+    - alt8-mtalk.google.com
+    - mtalk.google.com
+    - music.163.com
+    - '*.music.163.com'
+    - '*.126.net'
+    - musicapi.taihe.com
+    - music.taihe.com
+    - songsearch.kugou.com
+    - trackercdn.kugou.com
+    - '*.kuwo.cn'
+    - api-jooxtt.sanook.com
+    - api.joox.com
+    - joox.com
+    - y.qq.com
+    - '*.y.qq.com'
+    - streamoc.music.tc.qq.com
+    - mobileoc.music.tc.qq.com
+    - isure.stream.qqmusic.qq.com
+    - dl.stream.qqmusic.qq.com
+    - aqqmusic.tc.qq.com
+    - amobile.music.tc.qq.com
+    - '*.xiami.com'
+    - '*.music.migu.cn'
+    - weatherapi.market.xiaomi.com
+    - wtradv.market.xiaomi.com
+    - music.migu.cn
+    - '*.msftconnecttest.com'
+    - '*.msftncsi.com'
+    - localhost.ptlogin2.qq.com
+    - '*.*.*.srv.nintendo.net'
+    - '*.*.stun.playstation.net'
+    - xbox.*.*.microsoft.com
+    - '*.ipv6.microsoft.com'
+    - '*.*.xboxlive.com'
+    - speedtest.cros.wr.pvp.net
+    - api.minecraftservices.com
+    - sessionserver.mojang.com
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - tls://dns.alidns.com
+    - https://doh.pub/dns-query
+    - tls://dot.pub
+  nameserver-policy:
+    'geosite:cn,private,steam@cn,apple@cn,microsoft@cn,apple-cn,category-games@cn': 119.29.29.29
+
+proxy-groups:
+  - name: "🚀 节点选择"
+    type: select
+    include-all: true
+    proxies: ["DIRECT", "REJECT"]
+
+  - name: "📲 Telegram"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "📹 YouTube"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "🤖 人工智能"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "🔤 Google"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "📺 哔哩哔哩"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "🌍 国外媒体"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "🌏 国内媒体"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "📢 谷歌 FCM"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "😺 GitHub"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "Ⓜ️ 微软服务"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "🍎 苹果服务"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "🎮 游戏下载"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "🎮 游戏平台"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "🎯 全球直连"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+  - name: "🐟 漏网之鱼"
+    type: select
+    proxies: ["DIRECT", "🚀 节点选择", "🇺🇸 美国", "🇸🇬 狮城", "🇯🇵 日本", "🇭🇰 香港", "🇹🇼 台湾", "🇰🇷 韩国"]
+
+  - name: "🇭🇰 香港"
+    type: select
+    include-all: true
+    filter: "🇭🇰"
+    proxies: []
+  - name: "🇯🇵 日本"
+    type: select
+    include-all: true
+    filter: "🇯🇵"
+    proxies: []
+  - name: "🇺🇸 美国"
+    type: select
+    include-all: true
+    filter: "🇺🇸"
+    proxies: []
+  - name: "🇸🇬 狮城"
+    type: select
+    include-all: true
+    filter: "🇸🇬"
+    proxies: []
+  - name: "🇹🇼 台湾"
+    type: select
+    include-all: true
+    filter: "台湾"
+    proxies: []
+  - name: "🇰🇷 韩国"
+    type: select
+    include-all: true
+    filter: "韩国"
+    proxies: []
+
+rules:
+  - DOMAIN-SUFFIX,gemini.google.com,🔤 Google
+  - DOMAIN-SUFFIX,generativelanguage.googleapis.com,🔤 Google
+  - DOMAIN-SUFFIX,aistudio.google.com,🔤 Google
+  - DOMAIN-SUFFIX,ai.google.dev,🔤 Google
+  - DOMAIN-SUFFIX,google.com,🔤 Google
+  - DOMAIN-SUFFIX,googleapis.com,🔤 Google
+  - MATCH,🐟 漏网之鱼
