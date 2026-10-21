@@ -1,0 +1,32 @@
+{
+  "id": "qx.cookie.sync.ql",
+  "name": "Cookie 同步青龙",
+  "author": "quantumultx",
+  "description": "把 Quantumult X 已抓取的 Cookie 按白名单同步到青龙面板，自动创建/更新环境变量。在 BoxJS 面板修改 ql_sync_list 即可增删要同步的 Cookie，无需改动脚本。",
+  "scripts": [
+    {
+      "name": "同步到青龙（全部）",
+      "url": "https://raw.githubusercontent.com/你的用户名/你的仓库/main/qx_cookie_sync_ql.js"
+    },
+    {
+      "name": "同步到青龙（仅 WPS_COOKIE）",
+      "url": "https://raw.githubusercontent.com/你的用户名/你的仓库/main/qx_cookie_sync_ql.js?env=WPS_COOKIE"
+    }
+  ],
+  "datas": [
+    {
+      "key": "ql_cfg",
+      "name": "青龙配置",
+      "val": "",
+      "desc": "青龙 OpenAPI 配置（JSON）。例：{\"url\":\"http://192.168.2.1:5700\",\"client_id\":\"xxx\",\"client_secret\":\"yyy\"}",
+      "type": "textarea"
+    },
+    {
+      "key": "ql_sync_list",
+      "name": "同步白名单",
+      "val": "",
+      "desc": "要同步的 Cookie 列表（JSON 数组）。key 为 Cookie 在 $prefs/BoxJS 里的名称，env 为青龙环境变量名，enabled 设为 false 可临时停用。例：[{\"key\":\"wps_cookie\",\"env\":\"WPS_COOKIE\",\"remarks\":\"WPS\",\"enabled\":true}]",
+      "type": "textarea"
+    }
+  ]
+}
